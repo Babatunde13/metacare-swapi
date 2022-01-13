@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { Request } from 'express'
 
 export type BaseReq = Omit<Request, 'params'> & {
     params: { [key: string]: string | undefined }
@@ -7,12 +7,13 @@ export type BaseReq = Omit<Request, 'params'> & {
 
 export type ReqWithParams<T> = Omit<BaseReq, 'params'> & T
 
-type Json<T> =  {
+type Response<T> =  {
 	success: boolean
-	data: T
+    message: string
+	data: T | null
+    options?: {
+        status?: number
+    }
 }
 
-export type BaseRes<T> = Response & {
-    json: (data: Json<T>) => void
-}
-
+export type BaseRes<T> = Promise<Response<T>>

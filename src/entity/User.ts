@@ -4,15 +4,15 @@ import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
 export class User {
 
     @PrimaryGeneratedColumn()
-    id: number;
+    id: number | undefined;
 
     @Column()
-    firstName: string;
+    firstName: string | undefined;
 
     @Column()
-    lastName: string;
+    lastName: string | undefined;
 
     @Column()
-    age: number;
+    age: number | undefined;
 
 }

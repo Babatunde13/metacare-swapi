@@ -1,12 +1,12 @@
-name: Presubmit
+name: Lint
 
 on:
   push:
     branches:
-    - master
+    - main
   pull_request:
     branches:
-    - master
+    - main
 
 jobs:
   presubmit:
@@ -20,6 +20,6 @@ jobs:
     - name: setup
       run: |
         npm install
-    - name: presubmit
+    - name: lint
       run: |
-        eslint --ext .js,.jsx,.ts,.tsx src test
+        eslint --ext .js,.ts, src
