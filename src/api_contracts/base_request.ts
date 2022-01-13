@@ -11,6 +11,7 @@ type Json<T> =  {
 	success: boolean
 	data: T
 }
+con
 
 export type BaseRes<T> = Response & Json<T>
 
