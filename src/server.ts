@@ -6,6 +6,7 @@ export const startServer = async (config: ServerConfig) => {
     const app = express()
     app.use(express.json())
     app.use(express.urlencoded({ extended: true }))
+    app.set('trust proxy', true)
 
     config.routes.forEach((route) => {
         app[route.method](route.path, async (req: BaseReq, res: Response, next: NextFunction) => {

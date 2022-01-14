@@ -16,4 +16,4 @@ type Response<T> =  {
     }
 }
 
-export type BaseRes<T> = Promise<Response<T>>
+export type BaseRes<T> = Promise<Response<T> | void>
