@@ -1,8 +1,10 @@
 import { BaseRes } from './api_contracts/base_request.ctrl.contract';
+import { Connection } from 'typeorm';
 
 export interface ServerConfig {
     port: number
-    routes: Route[]
+    routes: Route[],
+    connection: Connection
 }
 
 export enum HttpMethod {

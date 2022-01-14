@@ -7,7 +7,7 @@ export interface ClientReq {
 }
 
 export interface ClientRes {
-    movie: {
+    movies: {
         id: number
         title: string
         year: number

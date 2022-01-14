@@ -1,5 +1,4 @@
 import express, { NextFunction, Response } from 'express'
-import { BaseReq } from './api_contracts/base_request.ctrl.contract';
 import { ServerConfig } from './server.types';
 
 export const startServer = async (config: ServerConfig) => {
@@ -9,8 +8,9 @@ export const startServer = async (config: ServerConfig) => {
     app.set('trust proxy', true)
 
     config.routes.forEach((route) => {
-        app[route.method](route.path, async (req: BaseReq, res: Response, next: NextFunction) => {
+        app[route.method](route.path, async (req: any, res: Response, next: NextFunction) => {
             return route.handlers.forEach(async (handler) => {
+                req.dbConnection = config.connection
                 const result = await handler(req)
                 if (result) {
                     if (result.options && result.options.status) {
@@ -18,8 +18,6 @@ export const startServer = async (config: ServerConfig) => {
                         delete result.options
                     }
                     res.json(result)
-                } else {
-                    next()
                 }
             })
 

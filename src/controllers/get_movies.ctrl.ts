@@ -1,10 +1,7 @@
-import { movies } from "../utils/movies.utils"
-import { Req, Res } from "../api_contracts/get_movies.ctrl.contract"
+import { Req, Res } from '../api_contracts/get_movies.ctrl.contract'
+import { getStarWars } from '../utils/request.utils'
 
 export default async function getMoviesCtrl(req: Req): Res {
-    return {
-        success: true,
-        message: 'Movies fetched successfully',
-        data: { movies }
-    }
+    const movies = await getStarWars()
+    return movies
 }

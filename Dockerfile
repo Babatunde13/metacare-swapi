@@ -12,6 +12,6 @@ EXPOSE 3000
 
 ENV PORT=3000
 
-RUN npm run build
+RUN tsc --project ./tsconfig.json
 
 CMD ["node", "dist/index.js"]
