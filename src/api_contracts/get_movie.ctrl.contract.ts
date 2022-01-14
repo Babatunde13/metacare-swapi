@@ -7,12 +7,10 @@ export interface ClientReq {
 }
 
 export interface ClientRes {
-    movie: {
-        id: number
-        title: string
-        opening_crawl: string
-        commentCount: number
-    }
+    id: number
+    title: string
+    opening_crawl: string
+    commentCount: number
 }
 
 export type Req = ReqWithParams<ClientReq>

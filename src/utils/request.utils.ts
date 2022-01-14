@@ -55,6 +55,23 @@ export async function getStarWarsById(id: number): Promise<IResponse> {
     }
 }
 
+export async function getStarWarsCharacter(url: string): Promise<IResponse> {
+    const data = await get(url)
+    if (isError(data)) {
+        return {
+            success: false,
+            message: 'Error fetching character',
+            data: null,
+            options: { status: 500 }
+        }
+    }
+    return {
+        success: true,
+        message: `Character detail fetched successfully`,
+        data: data.data
+    }
+}
+
 interface IResponse {
     success: boolean
     message: string

@@ -4,6 +4,7 @@ import { getStarWars } from '../utils/request.utils'
 export default async function getMoviesCtrl(req: Req): Res {
     const movies = await getStarWars()
     if (!movies.success) return movies
+    // sort by createdAt field
     return {
         ...movies,
         data: {
@@ -17,8 +18,11 @@ export default async function getMoviesCtrl(req: Req): Res {
                     id: movie.id,
                     title: movie.title.toUpperCase(),
                     opening_crawl: movie.opening_crawl,
-                    commentCount: commentModel.length
+                    commentCount: commentModel.length,
+                    createdAt: new Date(movie.created),
                 }
+            }).sort((a: any, b: any) => {
+                return b.createdAt - a.createdAt
             }),
             metaData: {
                 totalCount: movies.data.movies.count,

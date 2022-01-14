@@ -8,15 +8,14 @@ export default async function getMovieCtrl(req: Req): Res {
         ...movie,
         message: 'Movie not found'
     }
+    const movieResult = movie.data.movies
     return {
         ...movie,
         data: {
-            movie: {
-                id: movie.data.movies.id,
-                title: movie.data.movies.title.toUpperCase(),
-                opening_crawl: movie.data.movies.opening_crawl,
-                commentCount: Math.round(Math.random() * 100)
-            }
+            id: +req.params.id,
+            title: movieResult.title.toUpperCase(),
+            opening_crawl: movieResult.opening_crawl,
+            commentCount: Math.round(Math.random() * 100)
         }
     }
 }
