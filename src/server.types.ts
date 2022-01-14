@@ -9,9 +9,7 @@ export interface ServerConfig {
 
 export enum HttpMethod {
     GET = 'get',
-    POST = 'post',
-    PUT = 'put',
-    DELETE = 'delete'
+    POST = 'post'
 }
 
 export interface Route {

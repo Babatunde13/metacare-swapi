@@ -1,22 +1,33 @@
-import { Entity, Column, PrimaryGeneratedColumn, getRepository } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, getRepository, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
 export class Comment {
 
     @PrimaryGeneratedColumn()
-    id: number;
+    id: number
 
     @Column()
-    movieId: number;
+    movieId: number
 
     @Column()
-    comment: string;
+    comment: string
+
+    @Column()
+    userIp: string
+
+    @CreateDateColumn()
+    createdAt: Date
+
+    @UpdateDateColumn()
+    updatedAt: Date
 
     toJSON() {
         return {
             id: this.id,
             movieId: this.movieId,
-            comment: this.comment
+            comment: this.comment,
+            createdAt: this.createdAt.toISOString(),
+            updatedAt: this.updatedAt.toISOString(),
         }
     }
 }
