@@ -23,6 +23,12 @@ export const startServer = async (config: ServerConfig) => {
 
         })
     })
+    app.get(['/api/v1/docs', '/docs'], (req, res) => {
+        res.redirect('https://documenter.getpostman.com/view/11853513/UVXjKGLS')
+    })
+    app.get('/', (req, res) => {
+        res.send(`Welcome to Metacare Swapi APi, you can access the <a href="${req.protocol}://${req.get('host')}/docs">docs</a> here.`)
+    })
     app.use('*', (req, res) => {
         res.status(404).json({
             success: false,

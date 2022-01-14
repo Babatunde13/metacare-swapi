@@ -47,6 +47,7 @@ export default async function createMovieCommentCtrl(req: Req): Res {
     const movieResult = movie.data.movies
     return {
         ...movie,
+        message: 'Comment created successfuly',
         data: {
             id: +req.params.id,
             movieId: +req.params.id,
