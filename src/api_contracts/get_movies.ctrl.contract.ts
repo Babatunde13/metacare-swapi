@@ -9,9 +9,14 @@ export type ClientRes = {
     movies: {
         id: number
         title: string
-        year: number
-        rating: number
-    }[]
+        opening_crawl: string
+        commentCount: number
+    }[],
+    metaData: {
+        totalCount: number
+        next: string
+        previous: string
+    }
 }
 
 export type Req = ReqWithParams<ClientReq>

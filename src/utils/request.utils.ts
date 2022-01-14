@@ -19,7 +19,7 @@ const get= async (url: string) => {
     }
 }
 
-export async function getStarWars (): Promise<any>  {
+export async function getStarWars (): Promise<IResponse>  {
     const url = `${envs.swapiBaseUrl}/films/`
     const data = await get(url)
     if (isError(data)) {
@@ -37,7 +37,7 @@ export async function getStarWars (): Promise<any>  {
     }
 }
 
-export async function getStarWarsById(id: number): Promise<any> {
+export async function getStarWarsById(id: number): Promise<IResponse> {
     const url = `${envs.swapiBaseUrl}/films/${id}`
     const data = await get(url)
     if (isError(data)) {
@@ -52,5 +52,14 @@ export async function getStarWarsById(id: number): Promise<any> {
         success: true,
         message: `Movie with id =  ${id} fetched successfully`,
         data: { movies: data.data }
+    }
+}
+
+interface IResponse {
+    success: boolean
+    message: string
+    data: any
+    options?: {
+        status?: number
     }
 }
