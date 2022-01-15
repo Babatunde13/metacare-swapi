@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, getRepository, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
-export class Comment {
+export class MovieComment {
 
     @PrimaryGeneratedColumn()
     id: number
@@ -33,5 +33,5 @@ export class Comment {
 }
 
 export default function getCommentRepository() {
-    return getRepository<Comment>(Comment);
+    return getRepository<MovieComment>(MovieComment);
 }
