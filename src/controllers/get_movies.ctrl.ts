@@ -1,8 +1,8 @@
-import { Req, Res } from '../api_contracts/get_movies.ctrl.contract'
+import { Res } from '../api_contracts/get_movies.ctrl.contract'
 import { getStarWars } from '../utils/request.utils'
 import getCommentRepository from '../entities/comments.entity';
 
-export default async function getMoviesCtrl(req: Req): Res {
+export default async function getMoviesCtrl(): Res {
     const movies = await getStarWars()
     if (!movies.success) return movies
     const moviesResult = []
@@ -14,7 +14,7 @@ export default async function getMoviesCtrl(req: Req): Res {
             }
         })
         moviesResult.push({
-            id: movie.id,
+            id: movieId,
             title: movie.title.toUpperCase(),
             opening_crawl: movie.opening_crawl,
             commentCount: commentModel[1] as number,
@@ -24,6 +24,7 @@ export default async function getMoviesCtrl(req: Req): Res {
     return {
         ...movies,
         data: {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             movies: moviesResult.sort((a: any, b: any) => {
                 return b.release_date - a.release_date
             }),

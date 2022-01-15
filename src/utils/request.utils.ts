@@ -75,6 +75,7 @@ export async function getStarWarsCharacter(url: string): Promise<IResponse> {
 interface IResponse {
     success: boolean
     message: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data: any
     options?: {
         status?: number

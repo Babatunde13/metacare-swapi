@@ -13,5 +13,6 @@ export enum HttpMethod {
 export interface Route {
     path: string
     method: HttpMethod
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     handlers: ((req: any) => BaseRes<any>)[]
 }

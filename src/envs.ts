@@ -10,6 +10,7 @@ export default {
         user: process.env.DB_USER || 'user',
         password: process.env.DB_PASSWORD || 'password',
         name: process.env.DB_NAME || 'test',
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         type: (process.env.DB_TYPE || 'postgres') as any,
         url: process.env.DB_URL || '',
     },

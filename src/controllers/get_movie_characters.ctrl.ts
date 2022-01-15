@@ -43,31 +43,37 @@ export default async function getMovieCharactersCtrl(req: Req): Res {
     if (req.query.sort) {
         switch (req.query.sort) {
             case 'name_asc':
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 movieCharactersResult = movieCharactersResult.sort((a: any, b: any) => {
                     return a.name > b.name ? 1 : -1
                 })
                 break
             case 'name_desc':
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 movieCharactersResult = movieCharactersResult.sort((a: any, b: any) => {
                     return a.name < b.name ? 1 : -1
                 })
                 break
             case 'height_asc':
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 movieCharactersResult = movieCharactersResult.sort((a: any, b: any) => {
                     return a.height - b.height
                 })
                 break
             case 'height_desc':
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 movieCharactersResult = movieCharactersResult.sort((a: any, b: any) => {
                     return b.height - a.height
                 })
                 break
             case 'gender_asc':
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 movieCharactersResult = movieCharactersResult.sort((a: any, b: any) => {
                     return a.gender > b.gender ? 1 : -1
                 })
                 break
             case 'gender_desc':
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 movieCharactersResult = movieCharactersResult.sort((a: any, b: any) => {
                     return a.gender < b.gender ? 1 : -1
                 })
@@ -88,6 +94,7 @@ export default async function getMovieCharactersCtrl(req: Req): Res {
         data: {
             id: +req.params.id,
             title: movieResult.title.toUpperCase(),
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             characters: movieCharactersResult as any,
             metaData: {
                 totalCount: movieCharactersResult.length,
