@@ -17,7 +17,7 @@ module.exports = {
     migrationsRun: process.env.NODE_ENV === 'development' ? true : false,
     synchronize: false,
     cli: {
-        entitiesDir: 'dist/src/entities',
+        entitiesDir: 'src/entities',
         migrationsDir: 'src/migration',
         subscribersDir: 'src/subscriber'
     }

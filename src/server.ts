@@ -1,4 +1,4 @@
-import express, { NextFunction, Response } from 'express'
+import express, { Request, Response } from 'express'
 import { ServerConfig } from './server.types';
 
 export const startServer = async (config: ServerConfig) => {
@@ -8,9 +8,8 @@ export const startServer = async (config: ServerConfig) => {
     app.set('trust proxy', true)
 
     config.routes.forEach((route) => {
-        app[route.method](route.path, async (req: any, res: Response, next: NextFunction) => {
+        app[route.method](route.path, async (req: Request, res: Response) => {
             return route.handlers.forEach(async (handler) => {
-                req.dbConnection = config.connection
                 const result = await handler(req)
                 if (result) {
                     if (result.options) {
@@ -36,7 +35,7 @@ export const startServer = async (config: ServerConfig) => {
     app.use('*', (req, res) => {
         res.status(404).json({
             success: false,
-            message: 'Not found',
+            message: 'Resource not found',
             data: null
         })
     })

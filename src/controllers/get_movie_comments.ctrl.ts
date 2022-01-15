@@ -18,7 +18,6 @@ export default async function getMovieCommentsCtrl(req: Req): Res {
         },
         take: 500
     })
-    console.log(comments)
     const movieResult = movie.data.movies
     return {
         ...movie,
@@ -26,13 +25,13 @@ export default async function getMovieCommentsCtrl(req: Req): Res {
             id: +req.params.id,
             movieId: +req.params.id,
             movieTitle: movieResult.title.toUpperCase(),
-            comments: [{
-                id: +req.params.id,
-                comment: 'Something about this movie',
-                createdAt: new Date(movieResult.release_date).toISOString(),
-                updatedAt: new Date(movieResult.release_date).toISOString(),
-                userIp: req.ip
-            }]
+            comments: comments.map(comment => ({
+                id: comment.id,
+                comment: comment.comment,
+                createdAt: comment.createdAt.toISOString(),
+                updatedAt: comment.updatedAt.toISOString(),
+                userIp: comment.userIp
+            }))
         }
     }
 }
