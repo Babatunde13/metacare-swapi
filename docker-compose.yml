@@ -3,7 +3,7 @@ services:
   api:
     container_name: api
     build: .
-    command: bash -c "npm run db:upgrade && npmm run start"
+    command: bash -c "npm run db:upgrade && npm run start"
     ports:
       - 5000:5000
     volumes:
