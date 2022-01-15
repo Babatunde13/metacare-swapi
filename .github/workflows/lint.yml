@@ -22,4 +22,4 @@ jobs:
         npm install
     - name: lint
       run: |
-        eslint --ext .js,.ts, src
+        npm run lint
