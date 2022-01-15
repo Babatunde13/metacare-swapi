@@ -54,12 +54,12 @@ export default async function getMovieCharactersCtrl(req: Req): Res {
                 break
             case 'height_asc':
                 movieCharactersResult = movieCharactersResult.sort((a: any, b: any) => {
-                    return a.height > b.height ? 1 : -1
+                    return a.height - b.height
                 })
                 break
             case 'height_desc':
                 movieCharactersResult = movieCharactersResult.sort((a: any, b: any) => {
-                    return a.height < b.height ? 1 : -1
+                    return b.height - a.height
                 })
                 break
             case 'gender_asc':
