@@ -1,11 +1,13 @@
 import express, { Request, Response } from 'express'
-import { ServerConfig } from './server.types';
+import logger from 'morgan'
+import { ServerConfig } from './server.types'
 
 export const startServer = async (config: ServerConfig) => {
     const app = express()
     app.use(express.json())
     app.use(express.urlencoded({ extended: true }))
     app.set('trust proxy', true)
+    app.use(logger('combined'))
 
     config.routes.forEach((route) => {
         app[route.method](route.path, async (req: Request, res: Response) => {
