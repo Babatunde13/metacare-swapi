@@ -1,10 +1,10 @@
-import {createConnection} from 'typeorm'
+import { createConnection } from 'typeorm'
 
 export const createDbConnection = async () => {
     try {
         const connection = await createConnection()
         return {
-            data: connection
+            data: connection,
         }
     } catch (e) {
         return {
