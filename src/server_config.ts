@@ -33,5 +33,55 @@ export const routes: Route[] = [
         path: '/api/v1/movies/:id/comments',
         method: GET,
         handlers: [getMovieCommentsCtrl]
+    },
+    {
+        path: '/api/v1/docs',
+        method: GET,
+        handlers: [
+            async () => {
+                return {
+                    success: true,
+                    data: null,
+                    message: '',
+                    options: {
+                        redirect: 'https://documenter.getpostman.com/view/11853513/UVXjKGLS',
+                        status: 302,
+                    }
+                }
+            }
+        ]
+    },
+    {
+        path: '/docs',
+        method: GET,
+        handlers: [
+            async () => {
+                return {
+                    success: true,
+                    data: null,
+                    message: '',
+                    options: {
+                        redirect: 'https://documenter.getpostman.com/view/11853513/UVXjKGLS',
+                        status: 302,
+                    }
+                }
+            }
+        ]
+    },
+    {
+        path: '/',
+        method: GET,
+        handlers: [
+            async (req) => {
+                return {
+                    success: true,
+                    data: null,
+                    message: `Welcome to Metacare Swapi APi, you can access the <a href="${req.protocol}://${req.get('host')}/docs">docs</a> here.`,
+                    options: {
+                        sendString: true
+                    }
+                }
+            }
+        ]
     }
 ]

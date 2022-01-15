@@ -13,8 +13,18 @@ export const startServer = async (config: ServerConfig) => {
                 req.dbConnection = config.connection
                 const result = await handler(req)
                 if (result) {
-                    if (result.options && result.options.status) {
-                        res.status(result.options.status)
+                    if (result.options) {
+                        if (result.options.status) {
+                            res.status(result.options.status)
+                        }
+                        if (result.options.redirect) {
+                            res.redirect(result.options.redirect)
+                            return
+                        }
+                        if (result.options.sendString) {
+                            res.send(result.message)
+                            return
+                        }
                         delete result.options
                     }
                     res.json(result)
@@ -22,12 +32,6 @@ export const startServer = async (config: ServerConfig) => {
             })
 
         })
-    })
-    app.get(['/api/v1/docs', '/docs'], (req, res) => {
-        res.redirect('https://documenter.getpostman.com/view/11853513/UVXjKGLS')
-    })
-    app.get('/', (req, res) => {
-        res.send(`Welcome to Metacare Swapi APi, you can access the <a href="${req.protocol}://${req.get('host')}/docs">docs</a> here.`)
     })
     app.use('*', (req, res) => {
         res.status(404).json({

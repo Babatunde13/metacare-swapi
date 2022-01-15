@@ -15,6 +15,8 @@ type Response<T> =  {
 	data: T | null
     options?: {
         status?: number
+        redirect?: string
+        sendString?: boolean
     }
 }
 
