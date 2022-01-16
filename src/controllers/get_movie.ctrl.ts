@@ -12,7 +12,6 @@ export default async function getMovieCtrl(req: Req): Res {
         movie = await getStarWarsById(+req.params.id)
         setKey(`${envs.swapiBaseUrl}/films/${+req.params.id}`, movie)
     }
-    console.log(movie)
     if (!movie.success) return movie
     if (!movie.data) return {
         ...movie,
