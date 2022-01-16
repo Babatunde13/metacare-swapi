@@ -13,12 +13,12 @@ services:
     env_file:
       - .env
     environment:
-      DATABASE_URL: 'postgresql://${DB_USER}:${DB_PASSWORD}@db/${DB_NAME}'
+      DATABASE_URL: 'postgresql://${DB_USERNAME}:${DB_PASSWORD}@db/${DB_NAME}'
 
   db:
     container_name: db
     environment:
-      POSTGRES_USER: ${DB_USER}
+      POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
     image: postgres:latest
