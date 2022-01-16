@@ -41,6 +41,14 @@ export async function getStarWarsById(id: number): Promise<IResponse> {
     const url = `${envs.swapiBaseUrl}/films/${id}`
     const data = await get(url)
     if (isError(data)) {
+        if ((data.error as Error).message === 'Request failed with status code 404') {
+            return {
+                success: false,
+                message: 'Movie not found',
+                data: null,
+                options: { status: 404 }
+            }
+        }
         return {
             success: false,
             message: 'Error fetching movies',
@@ -58,6 +66,14 @@ export async function getStarWarsById(id: number): Promise<IResponse> {
 export async function getStarWarsCharacter(url: string): Promise<IResponse> {
     const data = await get(url)
     if (isError(data)) {
+        if ((data.error as Error).message === 'Request failed with status code 404') {
+            return {
+                success: false,
+                message: 'Movie not found',
+                data: null,
+                options: { status: 404 }
+            }
+        }
         return {
             success: false,
             message: 'Error fetching character',
