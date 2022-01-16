@@ -1,9 +1,17 @@
 import { Res } from '../api_contracts/get_movies.ctrl.contract'
-import { getStarWars } from '../utils/request.utils'
-import getCommentRepository from '../entities/comments.entity';
+import { getStarWars, IResponse } from '../utils/request.utils'
+import getCommentRepository from '../entities/comments.entity'
+import envs from '../envs'
+import { getKey, setKey } from '../utils/cache_data.utils'
 
 export default async function getMoviesCtrl(): Res {
-    const movies = await getStarWars()
+    let movies: IResponse
+    if (getKey(`${envs.swapiBaseUrl}/films/`)) {
+        movies = getKey(`${envs.swapiBaseUrl}/films/`)
+    } else {
+        movies = await getStarWars()
+        setKey(`${envs.swapiBaseUrl}/films/`, movies)
+    }
     if (!movies.success) return movies
     const moviesResult = []
     for (const movie of movies.data.movies.results) {

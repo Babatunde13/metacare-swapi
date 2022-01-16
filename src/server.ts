@@ -7,7 +7,7 @@ export const startServer = async (config: ServerConfig) => {
     app.use(express.json())
     app.use(express.urlencoded({ extended: true }))
     app.set('trust proxy', true)
-    app.use(logger('combined'))
+    app.use(logger('tiny'))
 
     config.routes.forEach((route) => {
         app[route.method](route.path, async (req: Request, res: Response) => {
