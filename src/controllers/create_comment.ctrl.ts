@@ -1,7 +1,9 @@
-import { Req, Res } from "../api_contracts/create_movie_comment.ctrl.contract"
-import { getStarWarsById } from '../utils/request.utils'
-import { MovieComment } from '../entities/comments.entity';
+import { Req, Res } from '../api_contracts/create_movie_comment.ctrl.contract'
+import { getStarWarsById, IResponse } from '../utils/request.utils'
+import { MovieComment } from '../entities/comments.entity'
 import getCommentRepository from '../entities/comments.entity'
+import { getKey, setKey } from '../utils/cache_data.utils'
+import envs from '../envs'
 
 export default async function createMovieCommentCtrl(req: Req): Res {
     const commentData = req.body.comment
@@ -19,7 +21,13 @@ export default async function createMovieCommentCtrl(req: Req): Res {
         options: { status: 400 },
         data: null
     }
-    const movie = await getStarWarsById(+req.params.id)
+    let movie: IResponse
+    if (getKey(`${envs.swapiBaseUrl}/films/${+req.params.id}`)) {
+        movie = getKey(`${envs.swapiBaseUrl}/films/${+req.params.id}`)
+    } else {
+        movie = await getStarWarsById(+req.params.id)
+        setKey(`${envs.swapiBaseUrl}/films/${+req.params.id}`, movie)
+    }
     if (!movie.success) return movie
     if (!movie.data) return {
         ...movie,

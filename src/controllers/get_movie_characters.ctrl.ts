@@ -1,27 +1,35 @@
-import { Req, Res } from "../api_contracts/get_movie_characters.ctrl.contract"
-import { getStarWarsById, getStarWarsCharacter } from '../utils/request.utils';
+import envs from '../envs'
+import { getKey, setKey } from '../utils/cache_data.utils'
+import { Req, Res } from '../api_contracts/get_movie_characters.ctrl.contract'
+import { getStarWarsById, getStarWarsCharacter, IResponse } from '../utils/request.utils'
 
 const getMovieCharacter = async (characterUrl: string) => {
-    const characterDetails = await getStarWarsCharacter(characterUrl)
-        if (!characterDetails.success) return {
-            ...characterDetails
-        }
-        if (!characterDetails.data) return {
-            ...characterDetails,
-            message: 'Character not found'
-        }
-        return {
-            id: characterUrl.split('/')[characterUrl.split('/').length - 2],
-            profileUrl: characterUrl,
-            name: characterDetails.data.name,
-            height: characterDetails.data.height,
-            mass: characterDetails.data.mass,
-            eye_color: characterDetails.data.eye_color,
-            hair_color: characterDetails.data.hair_color,
-            skin_color: characterDetails.data.skin_color,
-            gender: characterDetails.data.gender,
-            birth_year: characterDetails.data.birth_year
-        }
+    let characterDetails: IResponse
+    if (getKey(characterUrl)) {
+        characterDetails = getKey(characterUrl)
+    } else {
+        characterDetails = await getStarWarsCharacter(characterUrl)
+        setKey(characterUrl, characterDetails)
+    }
+    if (!characterDetails.success) return {
+        ...characterDetails
+    }
+    if (!characterDetails.data) return {
+        ...characterDetails,
+        message: 'Character not found'
+    }
+    return {
+        id: characterUrl.split('/')[characterUrl.split('/').length - 2],
+        profileUrl: characterUrl,
+        name: characterDetails.data.name,
+        height: characterDetails.data.height,
+        mass: characterDetails.data.mass,
+        eye_color: characterDetails.data.eye_color,
+        hair_color: characterDetails.data.hair_color,
+        skin_color: characterDetails.data.skin_color,
+        gender: characterDetails.data.gender,
+        birth_year: characterDetails.data.birth_year
+    }
 }
 
 const getAllMovieCharacters = (characters: string[]) => {
@@ -29,7 +37,13 @@ const getAllMovieCharacters = (characters: string[]) => {
 }
 
 export default async function getMovieCharactersCtrl(req: Req): Res {
-    const movie = await getStarWarsById(+req.params.id)
+    let movie: IResponse
+    if (getKey(`${envs.swapiBaseUrl}/films/${+req.params.id}`)) {
+        movie = getKey(`${envs.swapiBaseUrl}/films/${+req.params.id}`)
+    } else {
+        movie = await getStarWarsById(+req.params.id)
+        setKey(`${envs.swapiBaseUrl}/films/${+req.params.id}`, movie)
+    }
     if (!movie.success) return movie
     if (!movie.data) return {
         ...movie,
